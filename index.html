@@ -6,7 +6,6 @@
     <title>For Ananya ❤️</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -20,35 +19,39 @@
             margin: 0;
             overflow: hidden;
             text-align: center;
-            background-image: radial-gradient(#ffccd5 1px, transparent 1px);
-            background-size: 20px 20px;
+            /* XO Theme: subtle hearts background */
+            background-image: radial-gradient(#ff99aa 1px, transparent 1px);
+            background-size: 25px 25px;
         }
 
         .container {
             position: relative;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             max-width: 90%;
+            border: 2px solid #ffcccc;
         }
 
         h1 {
             color: #d32f2f;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 20px;
-            font-family: 'Indie Flower', cursive; /* Handwritten feel */
+            font-family: 'Indie Flower', cursive;
         }
 
         .gif-container img {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
             height: auto;
             border-radius: 10px;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            /* Polaroid style frame */
+            border: 8px solid white;
+            border-bottom: 25px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             margin-bottom: 20px;
-            transform: rotate(-2deg); /* Polaroid tilt effect */
+            transform: rotate(-3deg);
         }
 
         .buttons {
@@ -61,12 +64,12 @@
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
         }
@@ -74,18 +77,19 @@
         #yesBtn {
             background-color: #ff4d4d;
             color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 0 #cc0000;
         }
 
-        #yesBtn:hover {
-            transform: scale(1.05);
-            background-color: #ff3333;
+        #yesBtn:active {
+            box-shadow: none;
+            transform: translateY(4px);
         }
 
         #noBtn {
-            background-color: #ffffff;
+            background-color: #fff;
             color: #ff4d4d;
             border: 2px solid #ff4d4d;
+            box-shadow: 0 4px 0 #ffcccc;
         }
 
         /* Hidden success message */
@@ -93,11 +97,12 @@
             display: none;
         }
 
-        .polaroid-text {
-            font-size: 1.2rem;
+        .lyrics {
+            font-size: 1.1rem;
             color: #ff4d4d;
-            margin-top: 10px;
+            margin-top: 15px;
             font-family: 'Indie Flower', cursive;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -106,21 +111,22 @@
     <div class="container">
         <div id="question-section">
             <div class="gif-container">
-                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" id="mainGif" alt="Cute GIF">
+                <img src="https://media.tenor.com/f0yMgqK_i_EAAAAC/jake-enhypen.gif" id="mainGif" alt="Jake Enhypen">
             </div>
             <h1>Will you be my Valentine, Ananya?</h1>
             <div class="buttons">
-                <button id="yesBtn">Yes</button>
+                <button id="yesBtn">Yes! (XO)</button>
                 <button id="noBtn">No</button>
             </div>
         </div>
 
         <div id="success-message">
             <div class="gif-container">
-                <img src="https://media.tenor.com/ivKWdfdbV3EAAAAi/goma-peach.gif" id="successGif" alt="Celebration">
+                <img src="https://media.tenor.com/83F92JkCCm4AAAAC/jake-sim-jake.gif" id="successGif" alt="Jake Heart">
             </div>
-            <h1>Yay! It's like a Polaroid Love! 📸❤️</h1>
-            <p class="polaroid-text">See you on Feb 14th, Ananya!</p>
+            <h1>XO! You said Yes! ❤️</h1>
+            <p class="lyrics">"Baby, just say yes, kiss me, down!" 🎵</p>
+            <p style="margin-top:10px; color:#555;">See you on Feb 14th! - Love, [Your Name]</p>
         </div>
     </div>
 
@@ -130,17 +136,18 @@
         const questionSection = document.getElementById('question-section');
         const successMessage = document.getElementById('success-message');
 
+        // Jake-specific guilt trips
         const noTexts = [
             "No?", 
-            "Are you sure Ananya?", 
-            "Don't do this to me!", 
-            "Not even for Heeseung?", 
-            "Think about Jake!", 
-            "What about Jungwon?",
-            "Don't break my heart!", 
-            "I'll be sad!", 
+            "Don't do this Ananya!", 
+            "Not even for Jake?", 
+            "Shim Jaeyun is watching!", 
+            "Don't make Layla sad! 🐶", 
+            "XO only if you say yes!",
+            "I'll buy you merch!", 
+            "Pretty please?", 
             "Jebal (Please)!", 
-            "Last chance!", 
+            "Just click Yes already!", 
         ];
 
         let noCount = 0;
